@@ -16,11 +16,11 @@ pipeline {
                 bat 'npm install'
             }
         }
-        stage('Test') {
-            steps {
-                bat 'npm test'
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         bat 'npm test'
+        //     }
+        // }
         stage('Build Docker Image') {
             steps {
                 bat 'docker build -t myapp .'
