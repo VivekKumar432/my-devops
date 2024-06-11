@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        nodejs "NodeJS"
+        nodejs 'nodejs' // Name of the Node.js installation in Jenkins
     }
 
     stages {
@@ -13,26 +13,22 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
         stage('Test') {
             steps {
-                sh 'npm test'
+                bat 'npm test'
             }
         }
         stage('Build Docker Image') {
             steps {
-                script {
-                    dockerImage = docker.build("myapp:${env.BUILD_ID}")
-                }
+                bat 'docker build -t myapp .'
             }
         }
         stage('Run Docker Container') {
             steps {
-                script {
-                    dockerImage.run("-p 3000:3000")
-                }
+                bat 'docker run -d -p 80:80 myapp'
             }
         }
     }
